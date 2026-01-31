@@ -1,0 +1,28 @@
+\babel@toc {brazilian}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {brazilian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introdução}{14}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Objetivos}{15}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Objetivo Geral}{15}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Objetivos Específicos}{15}{subsection.1.1.2}%
+\contentsline {chapter}{\numberline {2}Fundamentação Teórica}{16}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Biosinais}{16}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Eletrocardiograma (ECG)}{16}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Eletromiografia (EMG)}{17}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Instrumentação e Condicionamento de Sinais}{18}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Filtragem Digital e Inteligência Artificial}{19}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Filtragem Digital}{19}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Inteligência Artificial (IA)}{20}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Aprendizado de Máquina (\textit {Machine Learning})}{20}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Redes Neurais Artificiais}{20}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Aprendizado Profundo (\textit {Deep Learning})}{21}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Redes Neurais Convolucionais (CNNs)}{21}{subsection.2.3.6}%
+\contentsline {subsection}{\numberline {2.3.7}Autoencoders}{22}{subsection.2.3.7}%
+\contentsline {chapter}{\numberline {3}Trabalhos Relacionados}{23}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Metodologia e Desenvolvimento}{24}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Definição de Topologia}{24}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Detalhamento dos Blocos do Sistema}{24}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Definição dos Componentes Eletrônicos Críticos}{25}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Resultados}{27}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusão}{28}{chapter.6}%
+\contentsline {chapter}{Refer{\^e}ncias}{29}{chapter.6}%
