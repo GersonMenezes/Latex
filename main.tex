@@ -165,12 +165,29 @@ Segundo \cite{souto2016}, um ciclo cardíaco normal em um traçado de ECG é com
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{imagens/ecg_padrao.png}
+    \includegraphics[width=0.8\textwidth]{imagens/ecg_padrao.jpg}
     \caption{Sinal de ECG típico mostrando as ondas P, QRS e T.}
     \label{fig:ecg}
 \end{figure}
 
 A padronização do registro de ECG é essencial para a análise clínica. O sinal é tradicionalmente impresso sobre uma grade milimetrada padrão, onde cada eixo possui um significado físico preciso. O eixo horizontal representa o tempo: a velocidade padrão de registro é de 25 mm/s. Assim, cada subdivisão menor (1 mm) corresponde a 0,04 segundos (40 ms), e cada quadrado maior (5 mm, composto por 5 quadradinhos) corresponde a 0,20 segundos (200 ms). O eixo vertical representa a voltagem (amplitude): a calibração padrão é de 10 mm/mV. Portanto, cada subdivisão menor (1 mm) na vertical representa 0,1 milivolts (0,1 mV), e cada quadrado maior (5 mm) representa 0,5 mV. Essa padronização permite que médicos e sistemas automatizados calculem a frequência cardíaca e a duração de intervalos críticos (como o intervalo PR e o segmento ST) visualmente.
+
+\subsection{Morfologia e Intervalos do ECG}
+
+A análise clínica do ECG baseia-se não apenas na presença das ondas, mas na duração e amplitude dos intervalos entre elas. Segundo \cite{souto2016} e ilustrado na Figura \ref{fig:ecg}, a atividade elétrica cardíaca normal segue um padrão hierárquico e temporal rigoroso:
+
+\begin{itemize}
+    \item \textbf{Onda P:} A primeira deflexão do ciclo, correspondente à despolarização atrial. Sua duração normal é inferior a 0,10 s e sua voltagem não deve exceder 0,25 mV. Alterações nesta onda podem indicar sobrecarga atrial.
+    
+    \item \textbf{Intervalo PR:} Compreende o tempo desde o início da onda P até o início do complexo QRS. Representa o retardo fisiológico da condução elétrica no nó atrioventricular, essencial para permitir o enchimento ventricular antes da contração. Sua duração normal varia entre 0,12 s e 0,20 s.
+    
+    \item \textbf{Complexo QRS:} Representa a despolarização ventricular. É composto por três ondas: a onda Q (primeira deflexão negativa), a onda R (primeira deflexão positiva) e a onda S (deflexão negativa após a onda R). A duração normal do complexo é de 0,06 s a 0,10 s. Um alargamento deste complexo geralmente indica bloqueios de ramo ou condução ventricular aberrante \cite{souto2016}.
+    
+    \item \textbf{Segmento ST e Onda T:} O segmento ST reflete o período refratário absoluto dos ventrículos (início da repolarização), devendo estar nivelado com a linha de base (isoelétrico). A onda T representa a repolarização ventricular propriamente dita.
+\end{itemize}
+
+A correta identificação destas estruturas no sinal ruidoso é o principal desafio dos sistemas de monitoramento automático, visto que artefatos de movimento (comuns na EMG) podem mimetizar a alta frequência do complexo QRS ou distorcer a linha de base do segmento ST.
+
 
 \subsection{Eletromiografia (EMG)}
 A eletromiografia (EMG) é uma técnica utilizada para o monitoramento da atividade elétrica das membranas excitáveis das células musculares. O sinal eletromiográfico representa a soma algébrica dos potenciais de ação das fibras musculares ativas detectados em uma determinada área \cite{marchetti2006}. Essa técnica é amplamente utilizada tanto em análises clínicas, como no estudo da marcha, quanto em aplicações de controle biomédico, pois fornece informações sobre o tempo de ativação e a intensidade da contração muscular.
@@ -257,35 +274,39 @@ O presente trabalho difere destes por propor uma arquitetura que integra ambas a
 % -------------------------------------------------------------------------
 % CAPÍTULO 4: DESENVOLVIMENTO
 % -------------------------------------------------------------------------
+
 \chapter{Metodologia e Desenvolvimento}
+\label{chap:desenvolvimento}
 
-Esta seção documenta o desenvolvimento da primeira etapa prevista no cronograma: a definição da arquitetura do sistema. São apresentados a definição da topologia adotada, o detalhamento dos blocos funcionais e a seleção dos componentes eletrônicos críticos.
+Este capítulo documenta as etapas técnicas de desenvolvimento do projeto, desde a concepção da arquitetura de \textit{hardware} até a implementação dos algoritmos de \textit{software}. A metodologia segue uma abordagem incremental, iniciando pela validação teórica e simulação, seguida pela prototipagem física e integração dos sistemas.
 
-\section{Definição de Topologia}
+\section{Definição da Arquitetura do Sistema}
 
 Para o desenvolvimento de sistemas de instrumentação biomédica, a literatura apresenta diferentes abordagens de topologia. Após análise comparativa de viabilidade e desempenho, optou-se pela **Topologia Híbrida (Condicionamento Analógico + Processamento Remoto)**.
 
-Nesta arquitetura, o \textit{hardware} analógico (o \textit{shield} proposto) realiza o condicionamento crítico (amplificação de instrumentação e filtragem de frequências espúrias), entregando um sinal limpo e com amplitude adequada ao conversor A/D. O processamento digital pesado (IA) é delegado a um computador, permitindo o uso de algoritmos complexos sem restrições de \textit{hardware} embarcado.
+Nesta arquitetura, o \textit{hardware} analógico (o \textit{shield} proposto) realiza o condicionamento crítico — amplificação de instrumentação e filtragem de frequências espúrias —, entregando um sinal limpo e com amplitude adequada ao conversor A/D. O processamento digital pesado, incluindo a filtragem avançada por Inteligência Artificial, é delegado a um computador. Esta decisão permite utilizar microcontroladores de baixo custo como interface de comunicação, garantindo ao mesmo tempo que o sinal digitalizado possua qualidade suficiente para análise.
 
-Esta decisão permite usar microcontroladores de baixo custo (como interface) e aproveitar o poder computacional do PC para a Inteligência Artificial, garantindo que o sinal chegue ao conversor A/D já com boa qualidade.
+\subsection{Detalhamento dos Blocos Funcionais}
 
-\section{Detalhamento dos Blocos do Sistema}
-
-A arquitetura do sistema foi dividida em quatro macro-blocos funcionais, conforme descrito a seguir:
+A arquitetura foi dividida em quatro macro-blocos funcionais:
 
 \begin{enumerate}
-    \item \textbf{Bloco de Aquisição Analógica (\textit{Front-End}):} Responsável pela interface com o paciente. Utiliza um Amplificador de Instrumentação (INA) para garantir alta Razão de Rejeição em Modo Comum (CMRR), eliminando interferências de rede elétrica. Inclui estágios de filtragem ativa (Passa-Alta e Passa-Baixa) para delimitar a banda de frequência dos biosinais.
+    \item \textbf{Bloco de Aquisição Analógica (\textit{Front-End}):} Responsável pela interface com o paciente. Utiliza um Amplificador de Instrumentação (INA) para garantir alta Razão de Rejeição em Modo Comum (CMRR) e estágios de filtragem ativa (Passa-Alta e Passa-Baixa) para delimitar a banda de frequência dos biosinais.
     
-    \item \textbf{Bloco de Conversão e Controle:} Composto pelo microcontrolador e um Conversor Analógico-Digital (ADC) externo. Este bloco digitaliza o sinal condicionado e o transmite via protocolo serial. O uso de um ADC externo visa superar as limitações de resolução (10 bits) e ruído dos conversores internos de microcontroladores comuns.
+    \item \textbf{Bloco de Conversão e Controle:} Composto pelo microcontrolador e um Conversor Analógico-Digital (ADC) externo de 16-bits. O uso de um ADC externo visa superar as limitações de resolução dos conversores nativos (geralmente 10-bits), permitindo a detecção de micro-variações no sinal.
     
-    \item \textbf{Bloco de Comunicação:} Interface (USB/Serial) que transporta o fluxo de dados digitais do \textit{hardware} para a estação de trabalho.
+    \item \textbf{Bloco de Comunicação:} Interface (USB/Serial) responsável pelo transporte do fluxo de dados digitais do \textit{hardware} para a estação de trabalho em tempo real.
     
-    \item \textbf{Bloco de Processamento Inteligente (Software):} Executado em computador, responsável por receber os dados, realizar o pré-processamento digital e aplicar o modelo de Inteligência Artificial (Autoencoder) para a remoção final de artefatos complexos e visualização.
+    \item \textbf{Bloco de Processamento Inteligente (Software):} Executado em computador, este módulo recebe os dados brutos, realiza o pré-processamento digital e aplica o modelo de Inteligência Artificial para a remoção final de artefatos complexos e visualização gráfica.
 \end{enumerate}
 
-\section{Definição dos Componentes Eletrônicos Críticos}
+\section{Projeto do Hardware de Aquisição}
 
-A escolha dos componentes foi baseada na necessidade de baixo ruído e alta fidelidade, conforme os objetivos do projeto. A Tabela \ref{tab:componentes} resume os componentes selecionados.
+Esta seção detalha a seleção de componentes e o dimensionamento dos circuitos analógicos.
+
+\subsection{Seleção de Componentes Críticos}
+
+A escolha dos componentes priorizou especificações de baixo ruído e alta fidelidade. A Tabela \ref{tab:componentes} resume a seleção final.
 
 \begin{table}[H]
 \centering
@@ -295,18 +316,51 @@ A escolha dos componentes foi baseada na necessidade de baixo ruído e alta fide
 \toprule
 \textbf{Função} & \textbf{Componente} & \textbf{Justificativa Técnica} \\
 \midrule
-Amplificação de Instrumentação & AD620 & Padrão em instrumentação médica devido ao alto CMRR ($>100$ dB) e ganho ajustável com um único resistor externo. \\
+Amplificação de Instrumentação & AD620 & Padrão médico devido ao alto CMRR ($>100$ dB) e ganho ajustável com um único resistor. \\
 \midrule
-Filtragem Ativa (Op-Amps) & OPA2134 & O OPA2134 oferece baixíssima distorção e ruído, ideal para áudio e biosinais. O TL074 é uma alternativa de baixo custo com entrada JFET e alta impedância. \\
+Filtragem Ativa (Op-Amps) & OPA2134 & Baixíssima distorção e ruído, ideal para bioinstrumentação de alta fidelidade. \\
 \midrule
-Conversão A/D (ADC) & ADS1115 & Módulo ADC de 16-bits com interface I2C. Proporciona uma resolução significativamente superior aos 10-bits nativos do Arduino, essencial para capturar micro-variações do sinal. \\
+Conversão A/D (ADC) & ADS1115 & Resolução de 16-bits e interface I2C, superior aos ADCs nativos de microcontroladores comuns. \\
 \midrule
-Microcontrolador & Arduino Uno R3 & Atua como plataforma de controle e interface I2C para o ADC, facilitando a integração e prototipagem rápida proposta na metodologia. \\
+Microcontrolador & Arduino Uno R3 & Plataforma acessível para controle do ADC e interface serial com o PC. \\
 \midrule
-Isolação de Energia & B0505S-1W & Conversor DC-DC isolado para separar a alimentação do circuito analógico da USB, reduzindo ruído digital. \\
+Isolação de Energia & B0505S-1W & Conversor DC-DC para isolar a alimentação do circuito analógico, reduzindo ruído da fonte USB. \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{Dimensionamento dos Filtros Analógicos}
+% [INSERIR OS CÁLCULOS DOS RESISTORES/CAPACITORES FUTURAMENTE]
+O condicionamento analógico inclui filtros ativos de segunda ordem configurados para uma banda passante entre 0,5 Hz e 100 Hz (para ECG) e até 500 Hz (para EMG), visando eliminar componentes DC e ruídos de alta frequência antes da digitalização.
+
+\section{Desenvolvimento do Software e Interface}
+
+Paralelamente ao desenvolvimento do hardware, foi implementado o software base para aquisição e visualização dos dados.
+
+\subsection{Ambiente de Simulação e Validação}
+
+Para validar a lógica de processamento e a interface gráfica antes da finalização do protótipo físico, desenvolveu-se um módulo de simulação em linguagem Python. Este software utiliza dados reais do banco de dados \textit{MIT-BIH Arrhythmia Database} (PhysioNet), reconhecido mundialmente como padrão para validação de algoritmos de ECG.
+
+Utilizou-se o registro ``100'' do banco de dados, contendo sinais digitalizados a 360 Hz. O software emula o comportamento do microcontrolador, lendo os dados brutos (\texttt{.dat}) e enviando-os para a rotina de plotagem como se estivessem sendo adquiridos em tempo real. Isso permite testar a estabilidade da taxa de atualização da interface e a visualização da morfologia do complexo QRS (utilizando a derivação MLII do registro).
+
+\subsection{Interface de Visualização em Tempo Real}
+
+Foi desenvolvida uma interface gráfica utilizando a biblioteca \textit{Matplotlib}. Para garantir fluidez na plotagem de sinais em alta frequência, utilizou-se a técnica de \textit{blitting}, que redesenha apenas os pixels modificados do gráfico a cada quadro de animação. A interface simula um monitor cardíaco, com varredura contínua no domínio do tempo e controles interativos para pausar a aquisição e salvar capturas de tela para análise posterior.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagens/interface_ecg.png}
+  \caption{Interface de aquisição de ECG.}
+  \label{fig:intecg}
+\end{figure}
+
+\section{Processamento Digital e Inteligência Artificial}
+% [AQUI ENTRARÁ O CONTEÚDO SOBRE OS FILTROS DIGITAIS QUE AINDA VOU FAZER]
+Esta etapa descreverá a implementação dos filtros digitais (FIR/IIR) para remoção de ruído de 60 Hz e o modelo de Rede Neural (Autoencoder) para limpeza avançada do sinal.
+
+\section{Integração e Testes do Sistema}
+% [AQUI ENTRARÁ A MONTAGEM FINAL]
+Descrição da integração entre o \textit{shield} analógico, o conversor digital e o software de processamento.
 
 % RESULTADOS
 \chapter{Resultados}

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1769803294.21446 "main.aux" "main.bbl" "main" 1769803303.10262 0
+["bibtex main"] 1769875173.43032 "main.aux" "main.bbl" "main" 1769875400.13392 0
   "./abnt.bst" 1769713870 28904 7ca396b97c357064a95357a065d8706e ""
   "./bibliografia.bib" 1769799634 5182 41e6109aa2b0ff12de563978ef999ddb ""
-  "main.aux" 1769803302 7733 86532034add83534639ca3d7faf7fcb0 "pdflatex"
+  "main.aux" 1769875399 9242 848749c8779d0ca053111cfdb2debf06 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1769803294.5556 "c:/Users/gerso/Documents/Latex/main.tex" "main.pdf" "main" 1769803303.10395 0
+["pdflatex"] 1769875393.28397 "c:/Users/gerso/Documents/Latex/main.tex" "main.pdf" "main" 1769875400.13469 0
   "C:/Users/gerso/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1769775875 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/gerso/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1200.pk" 1769799864 24152 baca02a2b816feb636d6be304071e996 ""
   "C:/Users/gerso/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1769775772 13333487 6987b5c81703e9fd64f6a57af9c4745e ""
@@ -113,17 +113,18 @@
   "C:/Users/gerso/AppData/Local/Programs/MiKTeX/tex/latex/titlesec/titlesec.sty" 1736608268 48766 87a17a4ef312a39cd43896e34a679a56 ""
   "C:/Users/gerso/AppData/Local/Programs/MiKTeX/tex/latex/tools/indentfirst.sty" 1761901070 1618 30b01152766afcef2ed8f904cfdd3cc6 ""
   "C:/Users/gerso/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/gerso/Documents/Latex/main.tex" 1769803284 33438 4063c911c12cf0f17bcf84d2211a33f9 ""
-  "imagens/ecg_padrao.png" 1769713854 380021 76dc1a03ce0aa08febce7501954066ce ""
+  "c:/Users/gerso/Documents/Latex/main.tex" 1769875392 37704 065a0b0818dc2dff6ce00b844d69565b ""
+  "imagens/ecg_padrao.jpg" 1769874967 157734 106d80a36086df2a56a39b828552411e ""
   "imagens/eletrodo_illustration.png" 1769713857 7073450 670aeceb205f8661928f70ae7f5bcc52 ""
+  "imagens/interface_ecg.png" 1769869498 78136 36782ab825805853848dc2014fc8917f ""
   "imagens/ufpelw.pdf" 1769713866 397316 87672d508056d6d4489afc5a79fbcbdf ""
-  "main.aux" 1769803302 7733 86532034add83534639ca3d7faf7fcb0 "pdflatex"
-  "main.bbl" 1769803294 3644 d86db15889f511219ae55167b43dcd7f "bibtex main"
-  "main.lof" 1769803302 663 07bc84ab883eb02eead2331fb6d75854 "pdflatex"
-  "main.lot" 1769803302 508 914fb20c23f5fda43d3ab285aa5e0a77 "pdflatex"
-  "main.out" 1769803302 4532 61874d91ffcead1be4ad657041a7edb1 "pdflatex"
-  "main.tex" 1769803284 33438 4063c911c12cf0f17bcf84d2211a33f9 ""
-  "main.toc" 1769803302 2318 8e23e8896072ff540fda2c6b1a900293 "pdflatex"
+  "main.aux" 1769875399 9242 848749c8779d0ca053111cfdb2debf06 "pdflatex"
+  "main.bbl" 1769875173 3644 d86db15889f511219ae55167b43dcd7f "bibtex main"
+  "main.lof" 1769875399 782 edfe3011aa2de46a5cb64d1f51c65e76 "pdflatex"
+  "main.lot" 1769875399 508 914fb20c23f5fda43d3ab285aa5e0a77 "pdflatex"
+  "main.out" 1769875399 6573 da30d7d135926bc4d61a0ae4557b9247 "pdflatex"
+  "main.tex" 1769875392 37704 065a0b0818dc2dff6ce00b844d69565b ""
+  "main.toc" 1769875399 3163 5d4df466b0c07f83f55984ef1571221f "pdflatex"
   "texufpel.cls" 1769713833 29569 b1a8943322c209e4047f09f9a96f9f42 ""
   (generated)
   "main.aux"

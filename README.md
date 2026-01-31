@@ -1,1 +1,1 @@
-#Para ver o TCC abra o arquivo main.pdf
+# Para ver o TCC abra o arquivo main.pdf
