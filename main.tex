@@ -1,6 +1,7 @@
 \documentclass[tcc,capa]{texufpel}
 
 \usepackage[utf8]{inputenc} % acentuacao
+\usepackage{amsmath} % para equações
 \usepackage{graphicx} % para inserir figuras
 \usepackage[T1]{fontenc}
 \usepackage{booktabs} % Para tabelas estéticas
@@ -357,6 +358,27 @@ Foi desenvolvida uma interface gráfica utilizando a biblioteca \textit{Matplotl
 \section{Processamento Digital e Inteligência Artificial}
 % [AQUI ENTRARÁ O CONTEÚDO SOBRE OS FILTROS DIGITAIS QUE AINDA VOU FAZER]
 Esta etapa descreverá a implementação dos filtros digitais (FIR/IIR) para remoção de ruído de 60 Hz e o modelo de Rede Neural (Autoencoder) para limpeza avançada do sinal.
+
+\subsection{Filtragem Digital da Interferência de Rede (60 Hz)}
+
+A aquisição de biopotenciais de baixa amplitude, como o ECG, é inerentemente suscetível a interferências eletromagnéticas externas. A fonte de ruído mais ubíqua em ambientes não blindados é a rede elétrica de distribuição, que no Brasil opera na frequência fundamental de 60 Hz. Esse ruído acopla-se capacitivamente aos cabos dos eletrodos e ao corpo do paciente, podendo apresentar amplitudes superiores ao próprio sinal fisiológico de interesse, mascarando ondas cruciais como a onda P e o segmento ST \cite{carr2001}.
+
+Embora o amplificador de instrumentação (hardware analógico) ofereça uma alta Taxa de Rejeição de Modo Comum (CMRR) para atenuar esse ruído na entrada, uma componente residual de 60 Hz frequentemente persiste no sinal digitalizado. Para mitigar esse problema sem distorcer a morfologia do complexo QRS, foi implementada uma etapa de filtragem digital seletiva.
+
+O filtro escolhido para esta aplicação foi um filtro do tipo Notch (rejeita-faixa ou "filtro entalhe") com Resposta ao Impulso Infinita (IIR - Infinite Impulse Response). Filtros IIR são eficientes computacionalmente e conseguem mimetizar o comportamento de filtros analógicos com poucos coeficientes. O filtro Notch é projetado para atenuar severamente uma frequência central específica ($f_0$) e permitir a passagem de todas as outras frequências do espectro \cite{balbinot2019v1}. 
+
+O projeto do filtro foi realizado digitalmente, definindo a frequência central $f_0 = 60 \text{ Hz}$ e um Fator de Qualidade ($Q$). O fator $Q$ determina a seletividade do filtro: um valor alto de $Q$ resulta em uma banda de rejeição extremamente estreita, garantindo que apenas a frequência de 60 Hz seja removida, preservando componentes de frequência adjacentes que são vitais para a integridade do sinal de ECG (como as componentes de alta frequência do complexo QRS). No sistema desenvolvido, utilizou-se um $Q \geq 30$.
+
+Para a aplicação em tempo real, onde o sinal é processado continuamente à medida que é amostrado, a implementação do filtro IIR requer a manutenção do estado interno do filtro (memória das amostras anteriores). A cada nova amostra recebida do conversor A/D, o algoritmo aplica a equação de diferenças do filtro utilizando os coeficientes calculados e o estado anterior das memórias, gerando a amostra filtrada e atualizando o estado para a próxima iteração.
+
+A Figura \ref{fig:filtro_ecg_60hz} demonstra a eficácia desta etapa de processamento. O gráfico superior (A) apresenta um sinal de ECG real (proveniente da base de dados MIT-BIH) contaminado sinteticamente com ruído de 60 Hz, simulando uma condição de aquisição ruidosa. O gráfico inferior (B) exibe o resultado após a passagem pelo filtro Notch digital implementado no firmware do sistema, evidenciando a recuperação da linha de base e a clareza das ondas P, QRS e T.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagens/filtro_60hz.png}
+  \caption{Comparativo de Filtragem Digital. A) Sinal de entrada contaminado por ruído de rede de 60 Hz. B) Sinal de saída após aplicação do filtro IIR Notch em tempo real, recuperando a morfologia do ECG.}
+  \label{fig:filtro_ecg_60hz}
+\end{figure}
 
 \section{Integração e Testes do Sistema}
 % [AQUI ENTRARÁ A MONTAGEM FINAL]

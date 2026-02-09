@@ -30,7 +30,8 @@
 \contentsline {subsection}{\numberline {4.3.1}Ambiente de Simulação e Validação}{27}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}Interface de Visualização em Tempo Real}{27}{subsection.4.3.2}%
 \contentsline {section}{\numberline {4.4}Processamento Digital e Inteligência Artificial}{28}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{28}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Resultados}{29}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusão}{30}{chapter.6}%
-\contentsline {chapter}{Refer{\^e}ncias}{31}{chapter.6}%
+\contentsline {subsection}{\numberline {4.4.1}Filtragem Digital da Interferência de Rede (60 Hz)}{28}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{29}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Resultados}{30}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusão}{31}{chapter.6}%
+\contentsline {chapter}{Refer{\^e}ncias}{32}{chapter.6}%

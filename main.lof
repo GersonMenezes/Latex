@@ -15,6 +15,7 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {Figura\ 3}{\ignorespaces Interface de aquisição de ECG.}}{27}{figure.caption.4}%
+\contentsline {figure}{\numberline {Figura\ 4}{\ignorespaces Comparativo de Filtragem Digital. A) Sinal de entrada contaminado por ruído de rede de 60 Hz. B) Sinal de saída após aplicação do filtro IIR Notch em tempo real, recuperando a morfologia do ECG.}}{29}{figure.caption.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
