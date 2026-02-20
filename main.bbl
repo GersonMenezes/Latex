@@ -1,5 +1,13 @@
 \begin{thebibliography}{\hspace{\parindent}}
 
+\bibitem[{Analog Devices}(2011){Analog Devices}]{ad620datasheet} {Analog
+  Devices}. \textbf{AD620}: Low Cost, Low Power Instrumentation Amplifier Data
+  Sheet. Norwood, MA: [s.n.], 2011. Rev. H.
+
+\bibitem[Antczak(2018)Antczak]{antczak2018} ANTCZAK, K\@. Deep Recurrent Neural
+  Networks for ECG Signal Denoising. \textbf{arXiv preprint arXiv:1807.11551},
+  [S.l.], 2018.
+
 \bibitem[Balbinot(2019)Balbinot]{balbinot2019v1} BALBINOT, A\@.
   \textbf{Instrumentação e fundamentos de medidas}. 3.ed. Rio de Janeiro:
   LTC, 2019. v.1.
@@ -8,21 +16,11 @@
   \textbf{Introduction to Biomedical Equipment Technology}. 4.ed. [S.l.]:
   Prentice Hall, 2001.
 
-\bibitem[Chandra; Sharma; Kasliwal(2018)Chandra; Sharma; Kasliwal]{chandra2018}
-  CHANDRA, B.~S.; SHARMA, R.~R.; KASLIWAL, R.~K\@. Deep Recurrent Neural
-  Networks for ECG Signal Denoising. \textbf{arXiv preprint arXiv:1807.11551},
-  [S.l.], 2018.
-
 \bibitem[{Equipe Data Science Academy}(2022){Equipe Data Science
   Academy}]{dsa2022} {Equipe Data Science Academy}. \textbf{Deep Learning
   Book}: em português, online e gratuito. 2022. [S.l.]: Data Science Academy,
   2022. Disponível em: \url{https://www.deeplearningbook.com.br/}. Acesso em:
   4 nov. 2025.
-
-\bibitem[Goel; Singh(2013)Goel; Singh]{goel2013} GOEL, A.; SINGH, G\@. A Novel
-  Low Noise High Gain CMOS Instrumentation Amplifier for Biomedical
-  Applications. \textbf{International Journal of Electrical and Computer
-  Engineering (IJECE)}, [S.l.], v.3, n.4, p.531--540, 2013.
 
 \bibitem[Goldberger \MakeLowercase{et~al.}(2000)Goldberger
   \MakeLowercase{et~al.}]{goldberger2000} GOLDBERGER, A.~L.
@@ -55,13 +53,18 @@
   \textbf{International Journal for Research in Applied Science \& Engineering
   Technology (IJRASET)}, [S.l.], v.13, n.7, p.3086--3093, 2025.
 
-\bibitem[Singh; Pradhan(2019)Singh; Pradhan]{singh2019} SINGH, P.; PRADHAN,
-  G\@. A New Modified Wavelet-Based ECG Denoising. \textbf{Healthcare
-  Technology Letters}, [S.l.], v.6, n.2, p.28--33, 2019.
+\bibitem[Singh; Pradhan(2018)Singh; Pradhan]{singh2018} SINGH, P.; PRADHAN,
+  G\@. Variational mode decomposition based ECG denoising using non-local means
+  and wavelet domain filtering. \textbf{Australasian Physical \& Engineering
+  Sciences in Medicine}, [S.l.], v.41, p.891--904, 2018.
 
 \bibitem[Souto(2016)Souto]{souto2016} SOUTO, B. G.~A\@. \textbf{Introdução à
   eletrocardiografia clínica básica}: manual para profissionais da atenção
   primária de saúde. 1.ed. São Carlos: [s.n.], 2016.
+
+\bibitem[Wang; Zhu; Yan; Yang(2019)Wang; Zhu; Yan; Yang]{wang2019} WANG, Z.;
+  ZHU, J.; YAN, T.; YANG, L\@. A new modified wavelet-based ECG denoising.
+  \textbf{Computer Assisted Surgery}, [S.l.], v.24, n.sup1, p.174--183, 2019.
 
 \bibitem[Widrow \MakeLowercase{et~al.}(1975)Widrow
   \MakeLowercase{et~al.}]{widrow1975} WIDROW, B. \MakeLowercase{et~al.}

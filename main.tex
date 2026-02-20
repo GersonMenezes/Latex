@@ -8,6 +8,9 @@
 \usepackage{float}    % Para posicionamento de figuras/tabelas
 \usepackage{url}      % Para links nas referências
 
+
+\newcommand{\source}[1]{\par {\small Fonte: #1}}
+
 \hypersetup{
     hidelinks, % Remove coloração e caixas
     unicode=true,   %Permite acentuação no bookmark
@@ -110,6 +113,7 @@ The acquisition of biosignals, such as Electrocardiogram (ECG) and Electromyogra
     \item[EMG] Eletromiografia
     \item[ML] Machine Learning
     \item[IA] Inteligência Artificial
+    \item[INA] Instrumentation Amplifier
     \item[PCB] Printed Circuit Board
     \item[RNAs] Redes Neurais Artificiais
     \item[sEMG] Surface Electromyography
@@ -131,7 +135,7 @@ Com o avanço da microeletrônica, tornou-se viável o desenvolvimento de sistem
 
 Soluções convencionais de baixo custo frequentemente falham em mitigar esse ruído de forma eficaz. O conversor Analógico-Digital (ADC) nativo de microcontroladores como o ATmega328 (do Arduino Uno) possui resolução e linearidade insuficientes, e o projeto de circuitos de condicionamento analógico --- a etapa de amplificação e filtragem que antecede a digitalização --- é crítico. Um projeto inadequado de \textit{front-end} analógico pode contaminar irremediavelmente o sinal antes mesmo que ele seja processado digitalmente \cite{kim2016}.
 
-Por outro lado, o processamento digital de sinais e, mais recentemente, a Inteligência Artificial, trouxeram novas ferramentas para o tratamento de sinais ruidosos. Contudo, para ruídos complexos e não-estacionários, métodos de filtragem adaptativa \cite{widrow1975} e algoritmos baseados em aprendizado de máquina demonstram superioridade. Redes neurais, como as convolucionais (CNNs) e autoencoders, têm mostrado resultados promissores na reconstrução e remoção de ruído de sinais de ECG \cite{chandra2018, lomoio2024}.
+Por outro lado, o processamento digital de sinais e, mais recentemente, a Inteligência Artificial, trouxeram novas ferramentas para o tratamento de sinais ruidosos. Contudo, para ruídos complexos e não-estacionários, métodos de filtragem adaptativa \cite{widrow1975} e algoritmos baseados em aprendizado de máquina demonstram superioridade. Redes neurais, como as convolucionais (CNNs) e autoencoders, têm mostrado resultados promissores na reconstrução e remoção de ruído de sinais de ECG \cite{antczak2018}.
 
 Este trabalho se justifica pela lacuna existente entre os sistemas de instrumentação de baixo custo e a necessidade de alta fidelidade na aquisição de biosinais. A inovação do projeto reside na abordagem híbrida: em vez de depender unicamente do hardware ou do software, propõe-se uma sinergia entre ambos. O projeto se distingue de outros por não tentar corrigir um sinal de baixa qualidade (adquirido por hardware genérico) apenas com software. A hipótese é que, ao projetar um hardware de precisão dedicado (um \textit{shield} analógico de baixo ruído), o sinal entregue ao processador será de qualidade muito superior, permitindo que a camada de Inteligência Artificial atue de forma mais fina e eficaz.
 
@@ -154,10 +158,17 @@ Desenvolver e validar uma plataforma híbrida de instrumentação para aquisiç�
 % -------------------------------------------------------------------------
 % CAPÍTULO 2: FUNDAMENTAÇÃO TEÓRICA
 % -------------------------------------------------------------------------
-\chapter{Fundamentação Teórica}
+\chapter{Aquisição e Processamento de Biosinais}
+
+Este capítulo estabelece as bases conceituais necessárias para a compreensão da plataforma desenvolvida. Inicialmente, são apresentadas as características fisiológicas dos sinais biológicos de interesse. Em seguida, discutem-se os princípios de instrumentação biomédica, detalhando os estágios de hardware para condicionamento de sinais. Por fim, abordam-se as técnicas de processamento digital e os fundamentos de Inteligência Artificial aplicados à filtragem e análise de séries temporais.
 
 \section{Biosinais}
-Os biosinais são registros de fenômenos biológicos que variam no tempo, podendo ser de natureza elétrica, mecânica ou química. No contexto deste trabalho, o foco recai sobre os biopotenciais, sinais elétricos gerados pela atividade eletroquímica de células excitáveis, especificamente o coração e os músculos esqueléticose eles serão obtidos através de eletrodos do tipo sEMG (Surface Electromyography)
+
+Os biosinais são manifestações energéticas mensuráveis que refletem processos biológicos e o estado de funcionamento de sistemas fisiológicos. Eles podem apresentar natureza química, mecânica, térmica ou elétrica, variando no tempo de forma determinística ou estocástica. Na prática clínica e na pesquisa, a análise dessas grandezas é a principal ferramenta para o diagnóstico de patologias e o monitoramento da homeostase corporal, exigindo transdutores específicos para converter essas variações biológicas em sinais elétricos interpretáveis por sistemas de instrumentação \cite{carr2001}.
+
+No contexto da engenharia biomédica, o foco recai predominantemente sobre os biopotenciais: sinais elétricos gerados pela atividade eletroquímica de células excitáveis, como neurônios e fibras musculares. A origem desses sinais reside na dinâmica da membrana celular, onde o fluxo de íons (principalmente sódio, potássio e cálcio) gera potenciais de ação que se propagam através dos tecidos. Quando somados espacialmente e temporalmente, esses microeventos celulares resultam em campos elétricos macroscópicos que podem ser captados na superfície corporal, dando origem a registros clássicos como o Eletrocardiograma (ECG) e a Eletromiografia (EMG) \cite{marchetti2006}.
+
+Contudo, a aquisição desses sinais impõe desafios significativos. Como são captados na superfície da pele através de eletrodos (método não invasivo), os biopotenciais sofrem forte atenuação pelos tecidos biológicos, apresentando amplitudes na ordem de microvolts ($\mu V$) a milivolts ($mV$). Além da baixa amplitude, esses sinais ocupam uma faixa de frequência que frequentemente se sobrepõe a ruídos ambientais e artefatos de movimento, exigindo técnicas rigorosas de amplificação e filtragem para garantir a fidelidade da informação \cite{balbinot2019v1}.
 
 \subsection{Eletrocardiograma (ECG)}
 O Eletrocardiograma (ECG) é o registro gráfico da atividade elétrica do coração, captado por eletrodos posicionados na superfície corporal. Ele representa a soma espacial e temporal dos potenciais de ação das fibras miocárdicas durante o ciclo cardíaco. A análise morfológica do ECG é fundamental para o diagnóstico de diversas patologias, como arritmias, isquemias e infartos.
@@ -172,8 +183,6 @@ Segundo \cite{souto2016}, um ciclo cardíaco normal em um traçado de ECG é com
 \end{figure}
 
 A padronização do registro de ECG é essencial para a análise clínica. O sinal é tradicionalmente impresso sobre uma grade milimetrada padrão, onde cada eixo possui um significado físico preciso. O eixo horizontal representa o tempo: a velocidade padrão de registro é de 25 mm/s. Assim, cada subdivisão menor (1 mm) corresponde a 0,04 segundos (40 ms), e cada quadrado maior (5 mm, composto por 5 quadradinhos) corresponde a 0,20 segundos (200 ms). O eixo vertical representa a voltagem (amplitude): a calibração padrão é de 10 mm/mV. Portanto, cada subdivisão menor (1 mm) na vertical representa 0,1 milivolts (0,1 mV), e cada quadrado maior (5 mm) representa 0,5 mV. Essa padronização permite que médicos e sistemas automatizados calculem a frequência cardíaca e a duração de intervalos críticos (como o intervalo PR e o segmento ST) visualmente.
-
-\subsection{Morfologia e Intervalos do ECG}
 
 A análise clínica do ECG baseia-se não apenas na presença das ondas, mas na duração e amplitude dos intervalos entre elas. Segundo \cite{souto2016} e ilustrado na Figura \ref{fig:ecg}, a atividade elétrica cardíaca normal segue um padrão hierárquico e temporal rigoroso:
 
@@ -205,13 +214,34 @@ Para a aquisição do sinal, comumente utilizam-se eletrodos de superfície (sEM
 O sinal de EMG bruto é estocástico e apresenta frequências que variam tipicamente entre 10 Hz e 500 Hz, com amplitudes na faixa de microvolts a milivolts \cite{marchetti2006}. Devido a essa natureza complexa, a análise do sinal geralmente requer processamento no domínio do tempo ou da frequência. Uma das técnicas mais comuns para quantificar a intensidade da ativação muscular é o cálculo do valor RMS (Root Mean Square), que reflete a potência do sinal sem a necessidade de retificação prévia, sendo uma métrica robusta para avaliar o nível de atividade elétrica muscular.
 
 \section{Instrumentação e Condicionamento de Sinais}
-Os sinais biológicos, como o ECG e o EMG, possuem amplitudes extremamente baixas e são frequentemente contaminados por ruídos externos e internos. Portanto, o estágio de instrumentação e condicionamento é crítico para garantir a integridade da informação antes que ela seja processada digitalmente. Esse processo envolve etapas principais de amplificação, filtragem e conversão analógico-digital.
+\label{sec:instrumentacao}
 
-A primeira etapa é a amplificação. Como os biopotenciais estão na ordem de milivolts ou microvolts, é necessário um ganho elevado para adequar o sinal à faixa dinâmica do conversor A/D. Para isso, utilizam-se amplificadores de instrumentação, que oferecem alta impedância de entrada — essencial para não carregar o circuito equivalente da pele — e uma alta Taxa de Rejeição de Modo Comum (CMRR). Um CMRR elevado (geralmente acima de 90 dB) é crucial para atenuar interferências eletromagnéticas, como o ruído de 60 Hz da rede elétrica, que incidem igualmente sobre os cabos e o corpo do paciente \cite{carr2001}.
+O estágio de instrumentação e condicionamento analógico atua como a ponte entre o fenômeno biológico e o mundo digital. Devido à fragilidade dos biosinais, não é viável conectá-los diretamente a um processador; é necessário um circuito intermediário (\textit{front-end} analógico) capaz de adequar as características elétricas do sinal. As subseções a seguir detalham os três pilares fundamentais desse processo: amplificação, filtragem e conversão analógico-digital.
 
-Em seguida, o sinal passa pela filtragem. Filtros analógicos são empregados para limitar a largura de banda do sinal apenas às frequências de interesse biológico e para remover artefatos. No caso da eletromiografia, por exemplo, recomenda-se filtros passa-faixa para eliminar componentes de corrente contínua (DC) e ruídos de alta frequência. O filtro do tipo Butterworth é frequentemente citado na literatura, como em \cite{marchetti2006} e \cite{balbinot2019v1}), por apresentar uma resposta de frequência plana na banda de passagem, preservando a linearidade da amplitude do sinal biológico sem introduzir ripples (oscilações) indesejados.
+\subsection{Amplificação de Instrumentação}
+A primeira e mais crítica etapa do condicionamento é a amplificação. Como os biopotenciais possuem amplitudes extremamente baixas, muitas vezes imersas em ruído elétrico, o uso de amplificadores operacionais comuns é insuficiente. O principal desafio não é apenas aumentar a amplitude do sinal, mas fazê-lo rejeitando as interferências que atingem o corpo do paciente, que atua como uma antena para o ruído da rede elétrica (60 Hz) e outros ruídos eletromagnéticos causados por equipamentos elétricos.
 
-Por fim, ocorre a Conversão Analógico-Digital (A/D). Esta etapa transforma o sinal contínuo de tensão em uma sequência discreta de números binários que podem ser processados por um microcontrolador ou computador. Dois parâmetros são fundamentais aqui: a resolução (número de bits), que define a menor variação de tensão detectável, e a frequência de amostragem. De acordo com o Teorema de Nyquist, a frequência de amostragem deve ser, no mínimo, o dobro da maior frequência contida no sinal para evitar o aliasing, um erro de reconstrução onde altas frequências são erroneamente interpretadas como baixas frequências \cite{marchetti2006}; \cite{balbinot2019v1}.
+Para solucionar esse problema, utiliza-se a topologia de Amplificador de Instrumentação (INA). Esse circuito é composto tipicamente por três amplificadores operacionais, conforme ilustrado na Figura \ref{fig:ina}. Diferente de um amplificador comum, o INA possui entradas diferenciais com altíssima impedância, o que evita o carregamento do circuito equivalente da pele.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagens/INA illustration.png}
+  \caption{Topologia interna do Amplificador de Instrumentação AD620}
+  \label{fig:ina}
+  \source{Analog Devices \cite{ad620datasheet}}
+\end{figure}
+
+Sua principal figura de mérito é a Taxa de Rejeição de Modo Comum (CMRR - \textit{Common-Mode Rejection Ratio}). O CMRR mede a capacidade do amplificador de rejeitar sinais que aparecem iguais em ambas as entradas (como o ruído de rede induzido no corpo) e amplificar apenas a diferença de potencial entre os eletrodos (o sinal biológico real). Segundo \cite{carr2001}, para aplicações biomédicas de alta fidelidade, é desejável um CMRR superior a 90 dB.
+
+\subsection{Filtragem Analógica Ativa}
+Após a amplificação, o sinal ainda pode conter componentes indesejados fora da faixa de interesse fisiológico, como flutuações de linha de base (baixa frequência) causadas pela respiração ou ruídos eletromagnéticos de alta frequência. A filtragem analógica é necessária para limitar a largura de banda do sinal antes da digitalização, melhorando a relação sinal-ruído (SNR) e prevenindo o falseamento de dados (\textit{aliasing}).
+
+Existem diversas topologias de filtros (Bessel, Chebyshev, Butterworth), mas a escolha para bioinstrumentação geralmente recai sobre filtros ativos com resposta Butterworth. Conforme destacam \cite{balbinot2019v1} e \cite{marchetti2006}, o filtro Butterworth é preferido por apresentar uma resposta "maximamente plana" na banda de passagem. Isso significa que ele não introduz oscilações (\textit{ripples}) na amplitude das frequências de interesse, preservando a linearidade e a morfologia das ondas do ECG e EMG, o que é crucial para o diagnóstico clínico preciso.
+
+\subsection{Conversão Analógico-Digital (A/D)}
+A etapa final do hardware é a Conversão Analógico-Digital (ADC), que transforma a tensão elétrica contínua em uma sequência discreta de valores binários processáveis por algoritmos computacionais. A qualidade desta conversão é definida principalmente por dois parâmetros: a taxa de amostragem e a resolução.
+
+A taxa de amostragem deve obedecer ao Teorema de Nyquist, sendo pelo menos o dobro da maior frequência contida no sinal para evitar perdas de informação. Já a resolução, medida em bits, define a "granularidade" da medida. Microcontroladores comuns (como o Arduino Uno) tipicamente possuem ADCs de 10 bits, o que divide a faixa de leitura em apenas 1024 níveis. Para aplicações de biosinais de alta precisão, onde micro-variações são diagnósticas, recomenda-se o uso de ADCs externos de maior resolução (como 16 bits ou superior), permitindo detectar nuances do sinal que seriam perdidas em quantizações mais grosseiras \cite{balbinot2019v1}.
 
 \section{Filtragem Digital e Inteligência Artificial}
 \label{sec:filtragem_ia}
@@ -263,14 +293,31 @@ Para a redução de ruído, utiliza-se uma variação conhecida como \textit{Den
 % CAPÍTULO 3: TRABALHOS RELACIONADOS
 % -------------------------------------------------------------------------
 \chapter{Trabalhos Relacionados}
+\label{chap:trabalhos_relacionados}
 
-Diversos trabalhos na literatura abordam a aquisição e filtragem de biosinais, explorando tanto melhorias em hardware quanto em software. \cite{kim2016} propuseram um SoC (\textit{System on Chip}) reconfigurável para aquisição de biosinais em plataformas vestíveis de baixa potência, focando na eficiência energética do hardware analógico integrado.
+A aquisição e o processamento de sinais biológicos, devido à sua baixa amplitude e alta suscetibilidade a ruídos, são temas amplamente investigados na literatura científica. Os esforços da comunidade de pesquisa dividem-se historicamente em duas frentes principais: a otimização de circuitos eletrônicos (\textit{hardware}) para melhorar a relação sinal-ruído no momento da captação, e o desenvolvimento de algoritmos avançados (\textit{software}) para a filtragem e reconstrução do sinal digitalizado. Esta seção apresenta as principais contribuições recentes em ambas as áreas, fornecendo o embasamento necessário para a arquitetura proposta neste trabalho.
 
-No contexto de melhoria de hardware discreto, \cite{goel2013} e, mais recentemente, \cite{pathak2025} discutiram o design de amplificadores operacionais de baixo ruído especificamente para instrumentação biomédica, demonstrando a importância da escolha de componentes e topologias de baixo ruído (\textit{low-noise}) para garantir a fidelidade do sinal antes da digitalização.
+\section{Avanços em Hardware e Instrumentação Analógica}
 
-Em relação ao processamento via software, \cite{singh2019} exploraram uma técnica baseada em transformada wavelet modificada para remoção de ruído em ECG, obtendo bons resultados em ruídos gaussianos. Avançando para o uso de \textit{Deep Learning}, \cite{chandra2018} utilizaram Redes Neurais Recorrentes (RNNs) para limpeza de sinal. Mais recentemente, \cite{lomoio2024} desenvolveram o DCAE-SR, um Autoencoder Convolucional para reconstrução de sinais de ECG em super-resolução, evidenciando o potencial de redes neurais profundas na recuperação de detalhes finos do sinal que seriam perdidos por filtros convencionais.
+No escopo da miniaturização e eficiência energética, \cite{kim2016} propuseram um System on Chip (SoC) reconfigurável focado em plataformas vestíveis (wearables) de baixa potência. O trabalho abordou o desafio de adquirir múltiplos parâmetros fisiológicos com modalidades distintas, incluindo Eletropotencial (como ECG), Bioimpedância, Eletroquímico (glicose) e Fotoelétrico (PPG). Os autores desenvolveram um front-end analógico que pode compartilhar blocos de amplificação e filtragem entre esses diferentes modos de sensoriamento, alcançando um consumo de energia menor que 52 µW por canal. A conclusão central do estudo evidenciou que a integração de hardware analógico reconfigurável reduz a complexidade de fabricação e o tamanho do sistema, ao diminuir a quantidade de chips necessários para aquisições multifuncionais.
 
-O presente trabalho difere destes por propor uma arquitetura que integra ambas as pontas: um \textit{front-end} analógico customizado de alta precisão (não integrado em SoC fechado) aliado a modelos de IA modernos, visando uma plataforma aberta, de baixo custo e replicável.
+Focando na qualidade da captação do sinal em ambientes com interferência, \cite{singh2018} projetaram um Amplificador de Instrumentação (INA) CMOS de baixo ruído e alto ganho. Os autores destacam o desafio de extrair sinais biomédicos fracos, na ordem de poucos milivolts, que possuem níveis de amplitude quase equivalentes aos de ruído. Utilizando uma topologia de três amplificadores operacionais com um estágio de saída do tipo folded cascode , o design alcançou um ganho total de 67,7 dB e uma Taxa de Rejeição de Modo Comum (CMRR) de 92 dB. O estudo concluiu que a arquitetura proposta, consumindo apenas 263 µW, oferece o baixo ruído e o alto ganho necessários para o processamento de sinais biomédicos.
+
+Dando continuidade às pesquisas sobre \textit{front-ends} de precisão, \cite{pathak2025} detalharam o projeto de amplificadores operacionais de baixo ruído voltados especificamente para a instrumentação biomédica. O trabalho concentrou-se no equacionamento do compromisso (\textit{trade-off}) entre ganho, consumo de energia e ruído térmico e de cintilação (\textit{flicker noise}) gerado pelos próprios transistores. A simulação da arquitetura de dois estágios operou com uma potência de 87 $\mu$W, entregando um ganho de 84 dB, um CMRR superior a 100 dB e alcançando um ruído referido à entrada excepcionalmente baixo, na marca de 10 nV/$\sqrt{\text{Hz}}$ (especificamente 9,5 nV/$\sqrt{\text{Hz}}$ a 1 kHz). A conclusão apontou que o dimensionamento geométrico preciso e a escolha da topologia dos componentes analógicos permitem uma redução drástica nesse nível de ruído, validando a importância de utilizar \textit{hardware low-noise} como primeira linha de defesa contra a degradação de biopotenciais.
+
+\section{Evolução da Filtragem: Do Processamento Clássico à Inteligência Artificial}
+
+Embora o hardware desempenhe um papel crucial, a eliminação de ruídos com sobreposição de frequência, como a interferência eletromiográfica (EMG), exige processamento digital avançado. Explorando esse domínio, \cite{wang2019} propuseram um método inovador focado no design de uma nova wavelet para a remoção de ruído em sinais de ECG. Em vez de propor novas regras de limiarização, os autores otimizaram os coeficientes do filtro para aproximar a resposta de um filtro ideal, construindo uma wavelet ortogonal quase simétrica (denominada wavelet fibr). Testado com dados clínicos reais e com sinais simulados de fibrilação atrial, o método obteve maiores valores de Relação Sinal-Ruído (SNR) e menor Erro Quadrático Médio (MSE) frente a wavelets tradicionais como db4 e sym4. A conclusão do estudo evidenciou que a wavelet modificada é altamente eficaz na remoção de ruídos de alta frequência, conseguindo preservar e realçar características fracas do sinal, como as ondas P, T e as ondas F, que normalmente seriam atenuadas no processo de filtragem.
+
+A transição dos métodos matemáticos determinísticos para o Aprendizado de Máquina foi aprofundada por \cite{antczak2018}, que propôs o uso de Redes Neurais Recorrentes Profundas (DRNNs) para o \textit{denoising} de ECG. O estudo abordou a limitação dos filtros convencionais, que tendem a distorcer o sinal clínico quando há sobreposição espectral entre o ruído e a informação biológica. Utilizando uma arquitetura baseada em células LSTM (\textit{Long Short-Term Memory}), o autor introduziu uma estratégia de \textit{Transfer Learning}: a rede foi pré-treinada com dados sintéticos gerados por um modelo dinâmico de ECG para aprender a morfologia ideal do sinal, sendo posteriormente refinada (\textit{fine-tuning}) com dados reais. Os resultados demonstraram que essa abordagem supera métodos de referência, especialmente em cenários com alta contaminação de ruído, evidenciando que modelos de \textit{Deep Learning} podem isolar características fisiológicas complexas sem a necessidade do projeto manual de filtros para cada tipo de interferência.
+
+Elevando a capacidade das redes neurais, \cite{lomoio2024} apresentaram o modelo DCAE-SR, que propõe uma abordagem inovadora: um Autoencoder Convolucional voltado não apenas para a remoção de ruídos (\textit{denoising}), mas também para a reconstrução do sinal em super-resolução. Utilizando Redes Neurais Convolucionais 1D (Conv1D), o modelo extrai recursos espaciais do sinal corrompido e os comprime em um espaço latente. A grande inovação da arquitetura reside no uso de dois decodificadores paralelos: um responsável por reconstruir o sinal na sua resolução original e outro focado exclusivamente em gerar uma onda limpa com uma taxa de amostragem significativamente superior à original (elevando de 50 Hz para 500 Hz). A pesquisa concluiu que os \textit{Autoencoders} são ferramentas formidáveis em instrumentação, pois conseguem recuperar detalhes morfológicos finos (como os complexos P, QRS e a onda T) que normalmente seriam obliterados por equipamentos de aquisição de baixa resolução ou artefatos de ruído.
+
+\section{Diferencial do Trabalho Proposto}
+
+A análise da literatura revela que os projetos frequentemente tratam a instrumentação biomédica de forma isolada: ou focam na construção de microchips altamente específicos e inacessíveis para o público geral (Kim; Ko, 2016; Goel; Singh, 2013; Pathak et al., 2025), ou dependem exclusivamente de processamento digital avançado e complexas redes neurais para limpar sinais que já foram adquiridos com baixa qualidade (Wang; Zhu; Yan; Yang, 2019; Antczak, 2018; Lomoio; Veltri; Guzzi; Liò, 2024).
+
+O presente trabalho se diferencia justamente por propor uma arquitetura holística e integrativa que une o melhor de ambas as abordagens. Em contraste com soluções do tipo \textit{System on Chip} fechadas, propõe-se um \textit{front-end} analógico com componentes discretos de prateleira (utilizando CIs de alto CMRR, baseados nos princípios validados por (Goel; Singh, 2013) e (Pathak et al., 2025)), configurando um \textit{shield} acessível e replicável. Além disso, em vez de depender apenas dessa etapa física, o sistema translada os dados para uma estação de processamento secundária, aplicando o poder dos \textit{Autoencoders} de \textit{Deep Learning} no domínio digital. Essa sinergia garante que a Inteligência Artificial trabalhe não sobre um sinal totalmente corrompido, mas sobre um sinal pré-condicionado, permitindo a extração de métricas de alta fidelidade clínica utilizando plataformas de hardware de baixo custo.
 
 % -------------------------------------------------------------------------
 % CAPÍTULO 4: DESENVOLVIMENTO

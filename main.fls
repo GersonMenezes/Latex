@@ -257,9 +257,18 @@ INPUT .\imagens\eletrodo_illustration.png
 INPUT .\imagens\eletrodo_illustration.png
 INPUT .\imagens\eletrodo_illustration.png
 INPUT .\imagens\eletrodo_illustration.png
+INPUT .\imagens\INA illustration.png
+INPUT .\imagens\INA illustration.png
+INPUT .\imagens\INA illustration.png
+INPUT .\imagens\INA illustration.png
+INPUT .\imagens\INA illustration.png
+INPUT .\imagens\INA illustration.png
+INPUT .\imagens\INA illustration.png
 INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvbo8t.tfm
 INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\helvetic\phvbo8t.vf
 INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvbo8r.tfm
+INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvr8t.tfm
+INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvr8t.tfm
 INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\jknappen\ec\ectt1200.tfm
 INPUT .\imagens\interface_ecg.png
 INPUT .\imagens\interface_ecg.png
@@ -268,8 +277,6 @@ INPUT .\imagens\interface_ecg.png
 INPUT .\imagens\interface_ecg.png
 INPUT .\imagens\interface_ecg.png
 INPUT .\imagens\interface_ecg.png
-INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvr8t.tfm
-INPUT C:\Users\gerso\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvr8t.tfm
 INPUT .\imagens\filtro_60hz.png
 INPUT .\imagens\filtro_60hz.png
 INPUT .\imagens\filtro_60hz.png
