@@ -5,38 +5,38 @@
 \contentsline {section}{\numberline {1.1}Objetivos}{16}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Objetivo Geral}{16}{subsection.1.1.1}%
 \contentsline {subsection}{\numberline {1.1.2}Objetivos Específicos}{16}{subsection.1.1.2}%
-\contentsline {chapter}{\numberline {2}Aquisição e Processamento de Biosinais}{17}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Biosinais}{17}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Eletrocardiograma (ECG)}{18}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Eletromiografia (EMG)}{19}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}Instrumentação e Condicionamento de Sinais}{20}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Amplificação de Instrumentação}{21}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}Filtragem Analógica Ativa}{21}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}Conversão Analógico-Digital (A/D)}{22}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Filtragem Digital e Inteligência Artificial}{22}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Filtragem Digital}{22}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Inteligência Artificial (IA)}{23}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Aprendizado de Máquina (\textit {Machine Learning})}{23}{subsection.2.3.3}%
-\contentsline {subsection}{\numberline {2.3.4}Redes Neurais Artificiais}{24}{subsection.2.3.4}%
-\contentsline {subsection}{\numberline {2.3.5}Aprendizado Profundo (\textit {Deep Learning})}{24}{subsection.2.3.5}%
-\contentsline {subsection}{\numberline {2.3.6}Redes Neurais Convolucionais (CNNs)}{25}{subsection.2.3.6}%
-\contentsline {subsection}{\numberline {2.3.7}Autoencoders}{25}{subsection.2.3.7}%
-\contentsline {chapter}{\numberline {3}Trabalhos Relacionados}{26}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Avanços em Hardware e Instrumentação Analógica}{26}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Evolução da Filtragem: Do Processamento Clássico à Inteligência Artificial}{27}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Diferencial do Trabalho Proposto}{28}{section.3.3}%
-\contentsline {chapter}{\numberline {4}Metodologia e Desenvolvimento}{29}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Definição da Arquitetura do Sistema}{29}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Detalhamento dos Blocos Funcionais}{29}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Projeto do Hardware de Aquisição}{30}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Seleção de Componentes Críticos}{30}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Dimensionamento dos Filtros Analógicos}{30}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimento do Software e Interface}{31}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Ambiente de Simulação e Validação}{31}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Interface de Visualização em Tempo Real}{31}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Processamento Digital e Inteligência Artificial}{32}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Filtragem Digital da Interferência de Rede (60 Hz)}{32}{subsection.4.4.1}%
-\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{33}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Resultados}{34}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusão}{35}{chapter.6}%
-\contentsline {chapter}{Refer{\^e}ncias}{36}{chapter.6}%
+\contentsline {chapter}{\numberline {2}Aquisição e Processamento de biossinais}{18}{chapter.2}%
+\contentsline {section}{\numberline {2.1}biossinais}{18}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Eletrocardiograma (ECG)}{19}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Eletromiografia (EMG)}{21}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Instrumentação e Condicionamento de Sinais}{22}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Amplificação de Instrumentação}{22}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Filtragem Analógica Ativa}{23}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Conversão Analógico-Digital (A/D)}{23}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Filtragem Digital e Inteligência Artificial}{24}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Filtragem Digital}{24}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Inteligência Artificial (IA)}{24}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Aprendizado de Máquina (\textit {Machine Learning})}{25}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Redes Neurais Artificiais}{25}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Aprendizado Profundo (\textit {Deep Learning})}{26}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Redes Neurais Convolucionais (CNNs)}{26}{subsection.2.3.6}%
+\contentsline {subsection}{\numberline {2.3.7}Autoencoders}{27}{subsection.2.3.7}%
+\contentsline {chapter}{\numberline {3}Trabalhos Relacionados}{28}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Avanços em Hardware e Instrumentação Analógica}{28}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Evolução da Filtragem: Do Processamento Clássico à Inteligência Artificial}{29}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Diferencial do Trabalho Proposto}{30}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Metodologia e Desenvolvimento}{31}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Definição da Arquitetura do Sistema}{31}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Detalhamento dos Blocos Funcionais}{31}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Projeto do Hardware de Aquisição}{32}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Seleção de Componentes Críticos}{32}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Dimensionamento dos Filtros Analógicos}{33}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Desenvolvimento do Software e Interface}{33}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Ambiente de Simulação e Validação}{33}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Interface de Visualização em Tempo Real}{34}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Processamento Digital e Inteligência Artificial}{34}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Filtragem Digital da Interferência de Rede (60 Hz)}{34}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{35}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Resultados}{37}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusão}{38}{chapter.6}%
+\contentsline {chapter}{Refer{\^e}ncias}{39}{chapter.6}%
