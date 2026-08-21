@@ -30,13 +30,16 @@
 \contentsline {subsection}{\numberline {4.1.1}Detalhamento dos Blocos Funcionais}{31}{subsection.4.1.1}%
 \contentsline {section}{\numberline {4.2}Projeto do Hardware de Aquisição}{32}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Seleção de Componentes Críticos}{32}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Dimensionamento dos Filtros Analógicos}{33}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Desenvolvimento do Software e Interface}{33}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Ambiente de Simulação e Validação}{33}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Interface de Visualização em Tempo Real}{34}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Processamento Digital e Inteligência Artificial}{34}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Filtragem Digital da Interferência de Rede (60 Hz)}{34}{subsection.4.4.1}%
-\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{35}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Resultados}{37}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusão}{38}{chapter.6}%
-\contentsline {chapter}{Refer{\^e}ncias}{39}{chapter.6}%
+\contentsline {subsection}{\numberline {4.2.2}Detalhamento do Front-End Analógico (Bloco 1)}{33}{subsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.2.1}Estágio de Amplificação Inicial}{33}{subsubsection.4.2.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2.2}Dimensionamento dos Filtros Ativos}{34}{subsubsection.4.2.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Conversão e Controle (Bloco 2)}{34}{subsection.4.2.3}%
+\contentsline {section}{\numberline {4.3}Desenvolvimento do Software e Interface}{35}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Ambiente de Simulação e Validação}{35}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Interface de Visualização em Tempo Real}{36}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Processamento Digital e Inteligência Artificial}{36}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Filtragem Digital da Interferência de Rede (60 Hz)}{36}{subsection.4.4.1}%
+\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{37}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Resultados}{39}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusão}{40}{chapter.6}%
+\contentsline {chapter}{Refer{\^e}ncias}{41}{chapter.6}%

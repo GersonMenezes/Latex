@@ -16,8 +16,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {Figura\ 4}{\ignorespaces Diagrama de blocos geral da plataforma híbrida de instrumentação, ilustrando o fluxo do sinal desde a aquisição analógica até o processamento computacional.}}{32}{figure.caption.4}%
-\contentsline {figure}{\numberline {Figura\ 5}{\ignorespaces Interface de aquisição de ECG.}}{34}{figure.caption.6}%
-\contentsline {figure}{\numberline {Figura\ 6}{\ignorespaces Comparativo de Filtragem Digital. A) Sinal de entrada contaminado por ruído de rede de 60 Hz. B) Sinal de saída após aplicação do filtro IIR Notch em tempo real, recuperando a morfologia do ECG.}}{36}{figure.caption.7}%
+\contentsline {figure}{\numberline {Figura\ 5}{\ignorespaces Diagrama esquemático do circuito de aquisição e filtragem analógica.}}{34}{figure.caption.6}%
+\contentsline {figure}{\numberline {Figura\ 6}{\ignorespaces Diagrama esquemático do bloco de conversão A/D e controle digital.}}{35}{figure.caption.7}%
+\contentsline {figure}{\numberline {Figura\ 7}{\ignorespaces Interface de aquisição de ECG.}}{36}{figure.caption.8}%
+\contentsline {figure}{\numberline {Figura\ 8}{\ignorespaces Comparativo de Filtragem Digital. A) Sinal de entrada contaminado por ruído de rede de 60 Hz. B) Sinal de saída após aplicação do filtro IIR Notch em tempo real, recuperando a morfologia do ECG.}}{38}{figure.caption.9}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

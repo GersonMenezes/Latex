@@ -345,7 +345,7 @@ A arquitetura foi dividida em quatro macro-blocos funcionais:
 
 \begin{enumerate}
     \item \textbf{Bloco de Aquisição Analógica (\textit{Front-End}):} Responsável pela interface com o paciente. Utiliza um Amplificador de Instrumentação (INA) para garantir alta Razão de Rejeição em Modo Comum (CMRR) e estágios de filtragem ativa (Passa-Alta e Passa-Baixa) para delimitar a banda de frequência dos biossinais.
-    
+      
     \item \textbf{Bloco de Conversão e Controle:} Composto pelo microcontrolador e um Conversor Analógico-Digital (ADC) externo de 16-bits. O uso de um ADC externo visa superar as limitações de resolução dos conversores nativos (geralmente 10-bits), permitindo a detecção de micro-variações no sinal.
     
     \item \textbf{Bloco de Comunicação:} Interface (USB/Serial) responsável pelo transporte do fluxo de dados digitais do \textit{hardware} para a estação de trabalho em tempo real.
@@ -354,26 +354,27 @@ A arquitetura foi dividida em quatro macro-blocos funcionais:
 \end{enumerate}
 
 \begin{figure}[htbp]
-\centering
-\begin{tikzpicture}[
-    block/.style={rectangle, draw, thick, text width=3.5cm, text centered, rounded corners, minimum height=2cm, font=\small},
-    line/.style={draw, thick, -latex}
-]
-    % Definindo os nós (blocos)
-    \node [block, fill=blue!10] (paciente) {Paciente\\(Eletrodos de Superfície)};
-    \node [block, right=1.5cm of paciente, fill=orange!10] (front) {\textbf{Bloco 1}\\Front-End Analógico\\(AD620 + OPA2134)};
-    \node [block, right=1.5cm of front, fill=green!10] (adc) {\textbf{Bloco 2}\\Conversão e Controle\\(ADS1115 + Arduino)};
-    \node [block, below=1.5cm of adc, fill=purple!10] (pc) {\textbf{Blocos 3 e 4}\\Comunicação, IHM e \textit{Deep Learning} (PC)};
-
-    % Desenhando as setas de conexão
-    \path [line] (paciente) -- node[above, font=\footnotesize] {Biopotencial} (front);
-    \path [line] (front) -- node[above, font=\footnotesize] {Sinal Filtrado} (adc);
-    \path [line] (adc) -- node[right, font=\footnotesize] {USB/Serial} (pc);
-
-\end{tikzpicture}
-\caption{Diagrama de blocos geral da plataforma híbrida de instrumentação, ilustrando o fluxo do sinal desde a aquisição analógica até o processamento computacional.}
-\label{fig:diagrama_geral}
-\end{figure}
+  \centering
+  \begin{tikzpicture}[
+      block/.style={rectangle, draw, thick, text width=3.5cm, text centered, rounded corners, minimum height=2cm, font=\small},
+      line/.style={draw, thick, -latex}
+  ]
+      % Definindo os nós (blocos)
+      % Aumentado o distanciamento de 1.5cm para 2.5cm
+      \node [block, fill=blue!10] (paciente) {Paciente\\(Eletrodos de Superfície)};
+      \node [block, right=2.5cm of paciente, fill=orange!10] (front) {\textbf{Bloco 1}\\Front-End Analógico\\(AD620 + OPA2134)};
+      \node [block, right=2.5cm of front, fill=green!10] (adc) {\textbf{Bloco 2}\\Conversão e Controle\\(ADS1115 + Arduino)};
+      \node [block, below=1.5cm of adc, fill=purple!10] (pc) {\textbf{Blocos 3 e 4}\\Comunicação, IHM e \textit{Deep Learning} (PC)};
+  
+      % Desenhando as setas de conexão com deslocamento vertical (yshift)
+      \path [line] (paciente) -- node[above, yshift=0.1cm, font=\footnotesize] {Biopotencial} (front);
+      \path [line] (front) -- node[above, yshift=0.1cm, font=\footnotesize] {Sinal Filtrado} (adc);
+      \path [line] (adc) -- node[right, xshift=0.1cm, font=\footnotesize] {USB/Serial} (pc);
+  
+  \end{tikzpicture}
+  \caption{Diagrama de blocos geral da plataforma híbrida de instrumentação, ilustrando o fluxo do sinal desde a aquisição analógica até o processamento computacional.}
+  \label{fig:diagrama_geral}
+  \end{figure}
 
 \section{Projeto do Hardware de Aquisição}
 
@@ -404,9 +405,33 @@ Isolação de Energia & B0505S-1W & Conversor DC-DC para isolar a alimentação 
 \end{tabular}
 \end{table}
 
-\subsection{Dimensionamento dos Filtros Analógicos}
-% [INSERIR OS CÁLCULOS DOS RESISTORES/CAPACITORES FUTURAMENTE]
-O condicionamento analógico inclui filtros ativos de segunda ordem configurados para uma banda passante entre 0,5 Hz e 100 Hz (para ECG) e até 500 Hz (para EMG), visando eliminar componentes DC e ruídos de alta frequência antes da digitalização.
+\subsection{Detalhamento do Front-End Analógico (Bloco 1)}O \textit{front-end} analógico é composto por um amplificador de instrumentação (AD620) e um amplificador operacional duplo (OPA2134). O AD620 atua na amplificação diferencial inicial, sendo um componente de baixo ruído e alta precisão, ideal para a aquisição de biopotenciais de baixa amplitude. O OPA2134, também caracterizado por seu baixo ruído, é utilizado em cascata para compor os estágios de filtragem ativa. O circuito é alimentado de forma simétrica com +9V (VCC) e -9V (VEE), tensões estas provenientes de duas baterias de 9V em série. 
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=\textwidth]{imagens/bloco1.pdf}
+  \caption{Diagrama esquemático do circuito de aquisição e filtragem analógica.}
+  \label{fig:esquematico_bloco1}
+\end{figure}
+
+\subsubsection{Estágio de Amplificação Inicial}A primeira etapa do condicionamento consiste na amplificação do biossinal através do AD620. O ganho ($G$) deste componente é configurado por um único resistor externo ($R_g$, denotado como $R_1$ no diagrama esquemático), governado pela equação fornecida pelo fabricante:$$G = 1 + \frac{49400}{R_g}$$Para a aquisição de biopotenciais, estabeleceu-se um ganho inicial na casa de 100. Este valor foi projetado para amplificar o sinal de forma significativa sem que eventuais flutuações da linha de base causem a saturação prematura do \textit{chip} antes da etapa de filtragem. Utilizando um resistor de precisão comercial $R_1 = 510 \Omega$, obtém-se um ganho prático de aproximadamente 98.
+
+\subsubsection{Dimensionamento dos Filtros Ativos}Para garantir a integridade do sinal, eliminando o componente DC e ruídos de alta frequência antes da digitalização, foram implementados filtros ativos de segunda ordem na topologia Sallen-Key. Para facilitar o projeto e manter a resposta em frequência com a curva plana característica dos filtros Butterworth, igualaram-se os pares de componentes resistivos e capacitivos em cada estágio. A frequência de corte ($f_c$) é definida pela equação:$$f_c = \frac{1}{2\pi R C}$$O primeiro filtro da cascata é um \textbf{Passa-Alta Ativo (U2A)}, projetado para eliminar a flutuação de linha de base causada predominantemente pela respiração do paciente. Para atingir a frequência de corte alvo de 0,5 Hz, os componentes foram dimensionados com $C_1 = C_2 = 1 \mu\text{F}$ e $R_2 = R_3 = 330 \text{ k}\Omega$.O estágio subsequente é um \textbf{Filtro Passa-Baixa Ativo (U2B)}, cuja função é atenuar interferências e ruídos de altas frequências indesejadas que se sobrepõem ao sinal de ECG. Este estágio foi dimensionado com os capacitores $C_3 = C_4 = 100 \text{ nF}$ e resistores $R_4 = R_5 = 15 \text{ k}\Omega$. Aplicando estes valores na fórmula, obtém-se uma frequência de corte teórica de aproximadamente 106 Hz. Este limite superior atua de forma precisa e eficiente para englobar a banda de frequências do complexo QRS do coração humano.
+
+\subsection{Conversão e Controle (Bloco 2)}
+
+O sinal analógico condicionado pelo circuito \textit{front-end} é encaminhado para o conversor analógico-digital ADS1115 (pino AIN0). A escolha deste componente se justifica pela sua resolução de 16-bits, que oferece uma precisão substancialmente maior na quantização dos biossinais quando comparada aos conversores nativos de 10-bits presentes no microcontrolador, permitindo detectar micro-variações no sinal filtrado.
+
+O ADS1115 comunica-se com o microcontrolador (Arduino Uno) por meio do protocolo bidirecional I$^2$C, utilizando os pinos SDA (\textit{Serial Data}) e SCL (\textit{Serial Clock}). Como este protocolo opera em arquitetura de dreno aberto (\textit{open-drain}), foram dimensionados resistores de \textit{pull-up} de 10 k$\Omega$ em ambas as linhas, conectados à alimentação de +5V. Isso garante que o barramento retorne ao nível lógico alto (1) quando estiver ocioso, estabilizando a comunicação digital. O pino de endereço (ADDR) foi aterrado, definindo o endereço I$^2$C padrão do escravo como \texttt{0x48}.
+
+A Figura \ref{fig:esquematico_bloco2} ilustra a topologia do circuito de conversão e comunicação digital.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imagens/bloco2.pdf}
+    \caption{Diagrama esquemático do bloco de conversão A/D e controle digital.}
+    \label{fig:esquematico_bloco2}
+\end{figure}
 
 \section{Desenvolvimento do Software e Interface}
 
