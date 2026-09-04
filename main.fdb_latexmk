@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex main"] 1787317904.9035 "main.aux" "main.bbl" "main" 1787328823.21861 0
+["bibtex main"] 1788539440.8862 "main.aux" "main.bbl" "main" 1788539446.11341 0
   "./abnt.bst" 1769713870.58504 28904 7ca396b97c357064a95357a065d8706e ""
   "./bibliografia.bib" 1771597018.71466 5982 066748b9e42982e49a8e26039f29fe81 ""
-  "main.aux" 1787328822.74189 13157 1d7d9715964e418c8ec168654d11ab56 "pdflatex"
+  "main.aux" 1788539445.67305 14535 836a16c28d1de26eb5612dcbd0077076 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1787328818.29535 "/home/gerson/Documentos/TCC/Latex/main.tex" "main.pdf" "main" 1787328823.21908 0
+["pdflatex"] 1788539441.20495 "/media/gerson/IAData/TCC/Latex/main.tex" "main.pdf" "main" 1788539446.11392 0
   "/etc/texmf/web2c/texmf.cnf" 1786371220.92148 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/gerson/Documentos/TCC/Latex/main.tex" 1787328817.96605 60687 bf4091454cf22d18d1dfa806af04a499 ""
+  "/media/gerson/IAData/TCC/Latex/main.tex" 1788539435.0066 67710 215867545edbeab563c7b8dec8b1d580 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1136768653 4484 b828043cbd581d289d955903c1339981 ""
@@ -203,15 +203,16 @@
   "imagens/ecg_padrao.jpg" 1769874967.40373 157734 bc9db64c2656acbe3bb8456d3b2bf664 ""
   "imagens/eletrodo_illustration.png" 1769713857.97246 7073450 1abad7ee16930b9779530039d1f247d3 ""
   "imagens/filtro_60hz.png" 1770645450.76713 111978 27419a10666a660fcfac433d815f4991 ""
+  "imagens/filtro_DCAE.png" 1788537709.59845 139448 6fab19aff126ed4dd5f5201d607527e6 ""
   "imagens/interface_ecg.png" 1769869498.09512 78136 746ce7e3e9a77d091ec01d49dd665b5b ""
   "imagens/ufpelw.pdf" 1769713866.67451 397316 86d79b6dd8caa8a5b11eccdc457e9249 ""
-  "main.aux" 1787328822.74189 13157 1d7d9715964e418c8ec168654d11ab56 "pdflatex"
-  "main.bbl" 1787317905.0782 3927 8079e6726e9baa9acc72a1511bfaa794 "bibtex main"
-  "main.lof" 1787328822.74504 1779 552657cdf174cc39d47019230d84e15d "pdflatex"
-  "main.lot" 1787328822.74504 508 23c91b734c5c322afe8191055f36ab80 "pdflatex"
-  "main.out" 1787328822.74414 8743 d99007622cb31a5ea25e177121c337e3 "pdflatex"
-  "main.tex" 1787328817.96605 60687 bf4091454cf22d18d1dfa806af04a499 ""
-  "main.toc" 1787328822.74504 4193 c89750827a01cb4e31a320e2f89a5b1b "pdflatex"
+  "main.aux" 1788539445.67305 14535 836a16c28d1de26eb5612dcbd0077076 "pdflatex"
+  "main.bbl" 1788539441.18707 3927 8079e6726e9baa9acc72a1511bfaa794 "bibtex main"
+  "main.lof" 1788539445.67661 2142 557690e3e988c6e09e8f287c1ef204c9 "pdflatex"
+  "main.lot" 1788539445.67661 508 23c91b734c5c322afe8191055f36ab80 "pdflatex"
+  "main.out" 1788539445.67605 9954 0c54ed42ef363f2ab1f2a27404b4c76b "pdflatex"
+  "main.tex" 1788539435.0066 67710 215867545edbeab563c7b8dec8b1d580 ""
+  "main.toc" 1788539445.67661 4669 4a05e004c35e612fd94b9b2828eba7cd "pdflatex"
   "texufpel.cls" 1769713833.80247 29569 b1a8943322c209e4047f09f9a96f9f42 ""
   (generated)
   "main.aux"

@@ -470,14 +470,57 @@ O projeto do filtro foi realizado digitalmente, definindo a frequência central 
 
 Para a aplicação em tempo real, onde o sinal é processado continuamente à medida que é amostrado, a implementação do filtro IIR requer a manutenção do estado interno do filtro (memória das amostras anteriores). A cada nova amostra recebida do conversor A/D, o algoritmo aplica a equação de diferenças do filtro utilizando os coeficientes calculados e o estado anterior das memórias, gerando a amostra filtrada e atualizando o estado para a próxima iteração.
 
-A Figura \ref{fig:filtro_ecg_60hz} demonstra a eficácia desta etapa de processamento. O gráfico superior (A) apresenta um sinal de ECG real (proveniente da base de dados MIT-BIH) contaminado sinteticamente com ruído de 60 Hz, simulando uma condição de aquisição ruidosa. O gráfico inferior (B) exibe o resultado após a passagem pelo filtro Notch digital implementado no firmware do sistema, evidenciando a recuperação da linha de base e a clareza das ondas P, QRS e T.
-
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{imagens/filtro_60hz.png}
-  \caption{Comparativo de Filtragem Digital. A) Sinal de entrada contaminado por ruído de rede de 60 Hz. B) Sinal de saída após aplicação do filtro IIR Notch em tempo real, recuperando a morfologia do ECG.}
+  \caption{Comparativo de Filtragem Digital. A) Sinal de entrada contaminado por ruído de rede de 60 Hz. 
+  B) Sinal de saída após aplicação do filtro IIR Notch em tempo real, recuperando a morfologia do ECG.
+  C) Sinal de saída após aplicação do filtro DCAE em tempo real, recuperando a morfologia do ECG.}
   \label{fig:filtro_ecg_60hz}
 \end{figure}
+
+A Figura \ref{fig:filtro_ecg_60hz} demonstra a eficácia desta etapa de processamento. O gráfico superior (A) apresenta um sinal de ECG real (proveniente da base de dados MIT-BIH) contaminado sinteticamente com ruído de 60 Hz, simulando uma condição de aquisição ruidosa. O gráfico inferior (B) exibe o resultado após a passagem pelo filtro Notch digital implementado no firmware do sistema, evidenciando a recuperação da linha de base e a clareza das ondas P, QRS e T.
+
+\subsection{Limitações da Filtragem Clássica e a Abordagem Híbrida}
+
+Conforme demonstrado na etapa anterior, filtros digitais tradicionais, como o IIR Notch, são extremamente eficientes e computacionalmente leves para eliminar interferências estacionárias e de frequência bem definida, a exemplo do ruído da rede elétrica (60 Hz). No entanto, a aquisição de biossinais no mundo real está sujeita a artefatos complexos e caóticos, como o ruído eletromiográfico (contração de outros músculos) e a flutuação da linha de base gerada pela respiração ou movimentação do paciente. 
+
+O grande desafio reside no fato de que o espectro de frequência desses artefatos frequentemente se sobrepõe à faixa de frequência do sinal cardíaco (0,5 a 100 Hz). A aplicação de filtros clássicos agressivos para limpar esses ruídos invariavelmente causa distorções de fase temporal, atenuando as ondas P e T e alterando a morfologia clínica do ECG. Para contornar essa limitação sem onerar o hardware de aquisição, implementou-se uma segunda camada de pós-processamento utilizando Inteligência Artificial, especificamente o \textit{Deep Learning}. A premissa é que, ao invés de atuar isolando frequências, o modelo aprenda a reconstruir a morfologia estrutural do batimento cardíaco, descartando ruídos não-estacionários.
+
+\subsection{Base de Dados e Estruturação do \textit{Dataset}}
+
+Para que a rede neural aprendesse a isolar as características fisiológicas do coração, foi necessário treiná-la com um volume robusto de sinais de alta fidelidade. Optou-se pela utilização do banco de dados \textit{PTB Diagnostic ECG Database} (PTBDB), disponibilizado pelo PhysioNet, devido a duas características fundamentais para o alinhamento com o hardware do projeto: a frequência de amostragem de 1000 Hz e a disponibilidade da derivação D1 (Lead I), que reflete perfeitamente a diferença de potencial entre os membros superiores captada pelo Amplificador de Instrumentação (INA) da plataforma. O banco PTBDB também agrega diversidade clínica (pacientes saudáveis, infartados, com arritmias, etc.), garantindo que a rede aprenda a preservar anomalias cardíacas reais em vez de apagá-las como ruído.
+
+O pré-processamento dos sinais brutos (\texttt{.dat} e \texttt{.hea}) foi conduzido na linguagem Python, utilizando a biblioteca oficial \texttt{wfdb} (\textit{Waveform Database}). Como o volume de dados ultrapassa a capacidade de memória padrão (549 registros), a estratégia adotada baseou-se na classe \texttt{Dataset} nativa do \textit{framework} PyTorch. A rotina foi programada para fatiar o sinal contínuo em janelas curtas de 2 segundos (equivalente a 2000 amostras por janela) no momento exato em que a rede solicita o dado para treinamento.
+
+Nesta etapa, aplicou-se a técnica de \textit{Data Augmentation}. A cada iteração, o algoritmo recorta a janela limpa e injeta, de forma estocástica (com amplitudes e frequências variáveis), uma combinação de ruído de rede (60 Hz), flutuação de linha de base e ruído branco gaussiano. Ao entregar pares dinâmicos de sinais "sujos" na entrada e seus respectivos gabaritos "limpos" na saída, impede-se que o modelo decore os dados (overfitting), forçando-o a generalizar o aprendizado e focar estritamente na forma do pulso cardíaco.
+
+\subsection{Arquitetura do Autoencoder Convolucional (DCAE)}
+
+A arquitetura do filtro inteligente foi baseada em um \textit{Denoising Convolutional Autoencoder} (DCAE) unidimensional, estruturado em duas etapas principais que mapeiam as matrizes no formato \texttt{[Lote, Canais, Amostras]}:
+
+\begin{itemize}
+    \item \textbf{\textit{Encoder} (Codificador):} Responsável por extrair as características do sinal e comprimir a informação. Foram utilizadas camadas de convolução (\texttt{Conv1d}) combinadas com funções de ativação \texttt{ReLU} e subamostragem (\texttt{MaxPool1d}). Partindo da janela original de 2000 pontos, o sinal passa por duas etapas de compressão temporal, alcançando um "gargalo" (espaço latente) de 500 pontos. Essa compressão obriga a rede a reter apenas os padrões estruturais repetitivos do ECG, pois os artefatos de ruído são imprevisíveis e difíceis de serem codificados nesse espaço reduzido.
+    \item \textbf{\textit{Decoder} (Decodificador):} Realiza o caminho inverso para recuperar a dimensionalidade original e redesenhar a onda. Durante os testes preliminares, a utilização de camadas \texttt{ConvTranspose1d} gerou oscilações de alta frequência no sinal de saída, um fenômeno conhecido na literatura de \textit{Deep Learning} como Artefato de Tabuleiro de Xadrez (\textit{Checkerboard Artifact}), causado pela sobreposição excessiva dos \textit{kernels} na etapa de expansão. Para solucionar esse problema, a topologia do \textit{Decoder} foi alterada para utilizar blocos de interpolação linear (\texttt{Upsample}) seguidos por convoluções simples (\texttt{Conv1d}). O \textit{Upsample} estica o sinal suavemente e a convolução atua refinando as arestas, entregando um ECG liso e com dimensões restauradas (2000 pontos).
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagens/filtro_DCAE.png}
+  \caption{Comparativo de Filtragem Digital. 
+  A) Sinal original. 
+  B) Sinal contaminado..
+  C) Sinal de saída após aplicação do filtro DCAE em tempo real, recuperando a morfologia do ECG.}
+  \label{fig:filtro_dcae}
+\end{figure}
+
+\subsection{Treinamento e Otimização do Modelo}
+
+A integração dos dados e da arquitetura neural consolidou-se em um \textit{pipeline} de treinamento implementado com suporte à aceleração por hardware. As dezenas de milhares de janelas geradas a partir do PTBDB foram submetidas a um particionamento (\textit{split}), reservando 80\% do volume para a fase de treino ativo e 20\% estritamente para a validação, assegurando uma métrica isenta para verificar se a rede não estava apenas memorizando a base.
+
+A otimização dos pesos internos das camadas convolucionais foi conduzida por um otimizador Adam, utilizando uma taxa de aprendizado (\textit{Learning Rate}) inicial de 0.001. A função de custo definida para guiar a retropropagação do erro (\textit{backpropagation}) foi o Erro Quadrático Médio (MSE - \textit{Mean Squared Error}), que calcula matematicamente a diferença amostra por amostra entre o sinal reconstruído pelo Autoencoder e o sinal de referência biologicamente limpo.
+
+Ao final do treinamento (após múltiplas épocas de convergência), os parâmetros aprendidos pelo modelo foram consolidados e exportados em um arquivo binário de pesos (\texttt{.pth}). Desta forma, o custo de processamento é transferido da etapa de aquisição para a inferência em software, permitindo que a plataforma aplique o modelo leve em tempo real sobre o hardware de baixo custo descrito no Bloco 1.
 
 \section{Integração e Testes do Sistema}
 % [AQUI ENTRARÁ A MONTAGEM FINAL]

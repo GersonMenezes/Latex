@@ -1,0 +1,34 @@
+# =========================
+# Python e Machine Learning
+# =========================
+# Ambiente virtual
+venv_tcc/
+
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Arquivos de dados, gráficos e pesos gerados nos testes
+*.csv
+*.pth
+*.png
+*.dat
+*.hea
+*.xyz
+
+# =========================
+# Arquivos auxiliares do LaTeX
+# =========================
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+
+# main.pdf

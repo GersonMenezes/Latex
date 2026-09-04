@@ -39,7 +39,11 @@
 \contentsline {subsection}{\numberline {4.3.2}Interface de Visualização em Tempo Real}{36}{subsection.4.3.2}%
 \contentsline {section}{\numberline {4.4}Processamento Digital e Inteligência Artificial}{36}{section.4.4}%
 \contentsline {subsection}{\numberline {4.4.1}Filtragem Digital da Interferência de Rede (60 Hz)}{36}{subsection.4.4.1}%
-\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{37}{section.4.5}%
-\contentsline {chapter}{\numberline {5}Resultados}{39}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusão}{40}{chapter.6}%
-\contentsline {chapter}{Refer{\^e}ncias}{41}{chapter.6}%
+\contentsline {subsection}{\numberline {4.4.2}Limitações da Filtragem Clássica e a Abordagem Híbrida}{38}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Base de Dados e Estruturação do \textit {Dataset}}{38}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Arquitetura do Autoencoder Convolucional (DCAE)}{39}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Treinamento e Otimização do Modelo}{39}{subsection.4.4.5}%
+\contentsline {section}{\numberline {4.5}Integração e Testes do Sistema}{40}{section.4.5}%
+\contentsline {chapter}{\numberline {5}Resultados}{41}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusão}{42}{chapter.6}%
+\contentsline {chapter}{Refer{\^e}ncias}{43}{chapter.6}%

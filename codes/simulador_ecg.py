@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 # --- CONFIGURAÇÕES ---
-RECORD_NAME = '100'     # Nome do arquivo sem extensão (.dat e .hea devem estar na pasta)
+RECORD_NAME = 'f1o01'     # Nome do arquivo sem extensão (.dat e .hea devem estar na pasta)
 JANELA_SEGUNDOS = 4     # Quantos segundos mostrar na tela
 INTERVALO_ATT = 20      # Velocidade da animação (ms)
 VELOCIDADE_SCROLL = 4   # Pontos por frame (ajuste se ficar muito rápido)
